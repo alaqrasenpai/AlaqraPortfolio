@@ -19,7 +19,7 @@ export default function Contact() {
       />
 
       <article className="relative w-full flex flex-col items-center justify-center py-8 sm:py-0 space-y-8">
-        <Image width={300} height={300} className="rounded-full border-slate-950	shadow-lg	" src={me}/>
+        <Image width={300} alt="my image" height={300} className="rounded-full border-slate-950	shadow-lg	" src={me}/>
         <div className="flex flex-col items-center justify-center space-y-6 w-full sm:w-3/4">
           <h1 className="text-accent font-semibold text-center text-4xl capitalize">
             summon the wizard
