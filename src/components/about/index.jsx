@@ -1,6 +1,8 @@
 import React from "react";
 import ItemLayout from "./ItemLayout";
 import Link from "next/link";
+import Image from "next/image";
+
 
 const AboutDetails = () => {
   return (
