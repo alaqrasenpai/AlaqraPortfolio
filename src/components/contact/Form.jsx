@@ -42,11 +42,11 @@ export default function Form() {
 
     emailjs
       .send(
-        process.env.NEXT_PUBLIC_SERVICE_ID,
-        process.env.NEXT_PUBLIC_TEMPLATE_ID,
+        "service_95flt2r",
+        "template_wtznmtf",
         params,
         {
-          publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY,
+          publicKey: "FkP2KPHmcyi-32ZFJ",
           limitRate: {
             throttle: 5000, // you can not send more then 1 email per 5 seconds
           },
