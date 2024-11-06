@@ -38,7 +38,7 @@ const AboutDetails = () => {
         <ItemLayout
           className={"col-span-full sm:col-span-6 md:col-span-4 !p-0"}
         >
-          <img
+          <Image
             className="w-full h-auto"
             src="https://spotify-recently-played-readme.vercel.app/api?user=31vtmejuosnotsq3kqmdxnnv6o3a&count=3"
             alt="alaqrasenpai"
@@ -48,7 +48,7 @@ const AboutDetails = () => {
 
         <ItemLayout className={"col-span-full md:col-span-8 !p-0"}>
         <p className="font-light  text-xs sm:text-sm md:text-base   ">
-            My name is Ahmad Alaqra and I'm a Programmer from Palestine
+            My name is Ahmad Alaqra and I&apos;m a Programmer from Palestine
             <br></br>
             👀 I’m passionate about programming, technology, and solving real-world problems through code.
             <br></br>
@@ -65,7 +65,7 @@ const AboutDetails = () => {
         </ItemLayout>
 
         <ItemLayout className={"col-span-full"}>
-          <img
+          <Image
             className="w-full h-auto"
             src={`https://skillicons.dev/icons?i=unity,flutter,nuxt,bootstrap,css,git,github,html,js,mongodb,mysql,nextjs,nodejs,npm,react,redux,angular,sass,tailwind,vscode,net`}
             alt="alaqrasenpai"
