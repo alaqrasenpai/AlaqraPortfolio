@@ -40,11 +40,13 @@ const AboutDetails = () => {
         <ItemLayout
           className={"col-span-full sm:col-span-6 md:col-span-4 !p-0"}
         >
-          <Image
+          <img
             className="w-full h-auto"
             src="https://spotify-recently-played-readme.vercel.app/api?user=31vtmejuosnotsq3kqmdxnnv6o3a&count=3"
             alt="alaqrasenpai"
             loading="lazy"
+            width={40}
+            height={40}
           />
         </ItemLayout>
 
@@ -67,7 +69,7 @@ const AboutDetails = () => {
         </ItemLayout>
 
         <ItemLayout className={"col-span-full"}>
-          <Image
+          <img
             className="w-full h-auto"
             src={`https://skillicons.dev/icons?i=unity,flutter,nuxt,bootstrap,css,git,github,html,js,mongodb,mysql,nextjs,nodejs,npm,react,redux,angular,sass,tailwind,vscode,net`}
             alt="alaqrasenpai"
