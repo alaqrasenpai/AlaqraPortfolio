@@ -20,23 +20,22 @@ export default function Home() {
         fill
         className="-z-50 w-full h-full object-cover object-center opacity-50"
       />
-      <div className="w-full h-screen relative">
-        <Navigation />
-        <div className="w-full h-3/5 xs:h-3/4 sm:h-screen absolute top-1/2 -translate-y-1/2 left-0 z-10">
+      <div className="w-full h-screen ">
+      <Navigation className="z-12" />
+      <div className="w-full h-full">
           <RenderModel>
             <Wizard />
           </RenderModel>
         </div>
 
-        {/* Text below RenderModel, visible only on mobile with top margin */}
-        <div className="w-full flex flex-col items-center text-center z-20 sm:hidden mt-24">
+        {/* <div className="w-full flex flex-col items-center text-center sm:hidden mt-24">
           <h1 className="font-bold text-4xl xs:text-5xl text-accent">
             Ahmad Alaqra
           </h1>
           <p className="font-light text-foreground text-base xs:text-lg mt-2 tracking-wide text-opacity-80">
-          <strong>Meet the Developer/Gamer/Wizard</strong>
+            <strong>Meet the Developer/Gamer/Wizard</strong>
           </p>
-        </div>
+        </div> */}
       </div>
 
 
