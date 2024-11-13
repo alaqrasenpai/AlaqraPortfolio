@@ -41,7 +41,7 @@ export const projectsData = [
     name: "TakTakTakeya",
     description: "For my graduation project, I developed Tak Tak Takeya, a Unity-based mobile game in C# that encourages children&apos;s cooperation through shared device play, reviving traditional games.",
     date: "2019-01-01",
-    demoLink: "#",
+    demoLink: "https://www.youtube.com/watch?v=uTnWtf7Zoqg",
   },
 ];
 
