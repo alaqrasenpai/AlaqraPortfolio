@@ -164,6 +164,7 @@ const SalaryCalculator = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       className="w-full max-w-auto xl:max-w-4xl px-4 mx-auto lg:px-16 space-y-6 md:space-y-8"
+      dir="rtl"
     >
       <div className="bg-gray-900 text-gray-100 p-6 rounded-lg shadow-lg">
         <div className="alert alert-warning text-center bg-yellow-600 text-white p-3 rounded mb-4" role="alert">
@@ -176,12 +177,13 @@ const SalaryCalculator = () => {
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
             {[2021, 2022, 2023, 2024, 2025].map(year => (
               <div key={year} className="col-span-1">
-                <label className="block mb-2 text-sm font-medium">راتب {year}</label>
+                <label className="block mb-2 text-sm font-medium text-right">راتب {year}</label>
                 <input
                   type="number"
-                  className="w-full p-2 rounded border border-gray-600 bg-gray-800 text-black focus:ring-2 focus:ring-blue-500"
+                  className="w-full p-2 rounded border border-gray-600 bg-gray-800 text-black focus:ring-2 focus:ring-blue-500 text-right"
                   value={salaries[year] || ''}
                   onChange={(e) => handleSalaryChange(year, e.target.value)}
+                  dir="ltr"
                 />
               </div>
             ))}
@@ -189,7 +191,7 @@ const SalaryCalculator = () => {
           
           <button
             type="submit"
-            className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
+            className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors float-right"
           >
             احسب
           </button>
@@ -197,39 +199,40 @@ const SalaryCalculator = () => {
 
         {showResults && (
           <div className="mt-6">
-            <h3 className="text-xl font-semibold mb-3">النتائج:</h3>
+            <h3 className="text-xl font-semibold mb-3 text-right">النتائج:</h3>
             <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
+              <table className="w-full border-collapse" dir="rtl">
                 <thead className="bg-gray-800">
                   <tr>
-                    <th className="p-3 border border-gray-700">السنة</th>
-                    <th className="p-3 border border-gray-700">الشهر</th>
-                    <th className="p-3 border border-gray-700">الراتب الأصلي</th>
-                    <th className="p-3 border border-gray-700">النسبة المصروفة</th>
-                    <th className="p-3 border border-gray-700">المبلغ المصروف</th>
-                    <th className="p-3 border border-gray-700">المستحقات المصروفة</th>
-                    <th className="p-3 border border-gray-700">المتبقي من المستحقات</th>
+                    <th className="p-3 border border-gray-700 text-right">السنة</th>
+                    <th className="p-3 border border-gray-700 text-right">الشهر</th>
+                    <th className="p-3 border border-gray-700 text-right">الراتب الأصلي</th>
+                    <th className="p-3 border border-gray-700 text-right">النسبة المصروفة</th>
+                    <th className="p-3 border border-gray-700 text-right">المبلغ المصروف</th>
+                    <th className="p-3 border border-gray-700 text-right">المستحقات المصروفة</th>
+                    <th className="p-3 border border-gray-700 text-right">المتبقي من المستحقات</th>
                   </tr>
                 </thead>
                 <tbody>
                   {rowsData.map((row, index) => (
                     <tr key={`${row.year}-${row.month}`} className="hover:bg-gray-800">
-                      <td className="p-3 border border-gray-700">{row.year}</td>
-                      <td className="p-3 border border-gray-700">{row.month}</td>
-                      <td className="p-3 border border-gray-700">{row.baseSalary}</td>
-                      <td className="p-3 border border-gray-700">{(row.percent * 100).toFixed(0)}%</td>
+                      <td className="p-3 border border-gray-700 text-right">{row.year}</td>
+                      <td className="p-3 border border-gray-700 text-right">{row.month}</td>
+                      <td className="p-3 border border-gray-700 text-right">{row.baseSalary}</td>
+                      <td className="p-3 border border-gray-700 text-right">{(row.percent * 100).toFixed(0)}%</td>
                       <td className="p-3 border border-gray-700">
                         <input
                           type="number"
-                          className="w-full p-1 rounded border border-gray-600 bg-yellow-100 text-black"
+                          className="w-full p-1 rounded border border-gray-600 bg-yellow-100 text-black text-right"
                           value={row.originalPaid.toFixed(2)}
                           onChange={(e) => handlePaidChange(index, e.target.value)}
+                          dir="ltr"
                         />
                       </td>
-                      <td className="p-3 border border-gray-700">
+                      <td className="p-3 border border-gray-700 text-right">
                         {row.duePaid > 0 ? row.duePaid.toFixed(2) : '-'}
                       </td>
-                      <td className="p-3 border border-gray-700">
+                      <td className="p-3 border border-gray-700 text-right">
                         {row.dueAccumulated.toFixed(2)}
                       </td>
                     </tr>
@@ -237,10 +240,10 @@ const SalaryCalculator = () => {
                 </tbody>
                 <tfoot className="bg-gray-800">
                   <tr>
-                    <th colSpan="4" className="p-3 border border-gray-700">الإجمالي</th>
-                    <th className="p-3 border border-gray-700">{totals.paid.toFixed(2)}</th>
-                    <th className="p-3 border border-gray-700">{totals.duePaid.toFixed(2)}</th>
-                    <th className="p-3 border border-gray-700">{totals.due.toFixed(2)}</th>
+                    <th colSpan="4" className="p-3 border border-gray-700 text-right">الإجمالي</th>
+                    <th className="p-3 border border-gray-700 text-right">{totals.paid.toFixed(2)}</th>
+                    <th className="p-3 border border-gray-700 text-right">{totals.duePaid.toFixed(2)}</th>
+                    <th className="p-3 border border-gray-700 text-right">{totals.due.toFixed(2)}</th>
                   </tr>
                 </tfoot>
               </table>

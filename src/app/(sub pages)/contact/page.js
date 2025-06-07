@@ -1,7 +1,6 @@
 import Image from "next/image";
 import bg from "../../../../public/background/contact-background.png";
 import me from "../../../../public/me.png";
-import Form from "@/components/contact/Form";
 
 export const metadata = {
   title: "Contact",
@@ -12,7 +11,7 @@ export default function Contact() {
     <>
       <Image
         src={bg}
-        alt="Ahmad Alaqra Portfolio website&apos;s contact page background image"
+        alt="Ahmad Alaqra Portfolio website's contact page background image"
         priority
         sizes="100vw"
         className="-z-50 fixed top-0 left-0 w-full h-full object-cover object-center opacity-50"
@@ -21,8 +20,8 @@ export default function Contact() {
       <article className="relative w-full flex flex-col items-center justify-center py-8 sm:py-0 space-y-8">
         <Image
           width={300}
-          alt="my image"
           height={300}
+          alt="my image"
           className="rounded-full border-slate-950 shadow-lg"
           src={me}
         />
@@ -37,8 +36,30 @@ export default function Contact() {
             <br />
             I love blending creativity with clean code to build projects that are both fun and functional. Let&apos;s connect!
           </p>
+
+          <div className="text-center space-y-2">
+            <p className="text-base sm:text-lg">
+              📧 Email:{" "}
+              <a
+                href="mailto:alaqrahmad@gmail.com"
+                className="text-accent underline hover:text-accent/80"
+              >
+                alaqrahmad@gmail.com
+              </a>
+            </p>
+            <p className="text-base sm:text-lg">
+              💬 WhatsApp:{" "}
+              <a
+                href="https://wa.me/972597060381"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent underline hover:text-accent/80"
+              >
+                +972 59 706 0381
+              </a>
+            </p>
+          </div>
         </div>
-        <Form />
       </article>
     </>
   );
