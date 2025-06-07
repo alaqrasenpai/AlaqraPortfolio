@@ -26,7 +26,7 @@ export default function Contact() {
           </h1>
           <p className="text-center font-light text-sm xs:text-base">
 
-            Hey! I’m Ahmad Alaqra—a coder, gamer, and anime enthusiast.<br></br>
+            Hey! I’m Ahmad Alaqra'a coder, gamer, and anime enthusiast.<br></br>
             When I’m not debugging or developing, I’m probably gaming or deep in an anime series.<br></br>
             I love blending creativity with clean code to build projects that are both fun and functional. Let’s connect!
           </p>
