@@ -39,7 +39,7 @@ export default function Home() {
               Ahmad Alaqra
             </h1>
             <p className="font-light text-foreground text-base xs:text-lg mt-2 tracking-wide text-opacity-80">
-              <strong>Meet the Developer/Gamer/Wizard</strong>
+              <strong>Meet the Developer/Gamer</strong>
             </p>
           </div>
         </div>
