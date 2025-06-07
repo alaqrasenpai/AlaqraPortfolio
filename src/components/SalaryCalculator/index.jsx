@@ -3,7 +3,119 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const SalaryCalculator = () => {
-  // ... (نفس حالة المكون السابقة)
+  const [salaries, setSalaries] = useState({
+    2021: null,
+    2022: null,
+    2023: null,
+    2024: null,
+    2025: null
+  });
+  
+  const [rowsData, setRowsData] = useState([]);
+  const [totals, setTotals] = useState({
+    paid: 0,
+    duePaid: 0,
+    due: 0
+  });
+  const [showResults, setShowResults] = useState(false);
+
+  const salaryData = {
+    // ... (نفس بيانات salaryData السابقة)
+  };
+
+  const handleSalaryChange = (year, value) => {
+    setSalaries(prev => ({
+      ...prev,
+      [year]: value ? parseFloat(value) : null
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    calculateResults();
+  };
+
+  const calculateResults = () => {
+    let newRowsData = [];
+    let totalPaid = 0, totalDuePaid = 0, totalDue = 0;
+    let dueAccumulated = 0;
+
+    for (const [key, data] of Object.entries(salaryData)) {
+      const [year, month] = key.split("-");
+      const baseSalary = salaries[year];
+      if (!baseSalary) continue;
+
+      const percent = data.percent;
+      const duePercent = data.due || 0;
+      const minSalary = data.min || 0;
+
+      const paid = Math.max(baseSalary * percent, minSalary);
+      const duePaid = baseSalary * duePercent;
+
+      dueAccumulated += (baseSalary - paid);
+      dueAccumulated -= duePaid;
+
+      totalPaid += paid;
+      totalDuePaid += duePaid;
+      totalDue = dueAccumulated;
+
+      newRowsData.push({
+        year,
+        month,
+        baseSalary,
+        percent,
+        duePercent,
+        minSalary,
+        originalPaid: paid,
+        duePaid,
+        dueAccumulated
+      });
+    }
+
+    setRowsData(newRowsData);
+    setTotals({
+      paid: totalPaid,
+      duePaid: totalDuePaid,
+      due: totalDue
+    });
+    setShowResults(true);
+  };
+
+  const handlePaidChange = (index, value) => {
+    const newValue = parseFloat(value) || 0;
+    const updatedRows = [...rowsData];
+    updatedRows[index].originalPaid = newValue;
+    setRowsData(updatedRows);
+    
+    // Recalculate all rows
+    let totalPaid = 0, totalDuePaid = 0, totalDue = 0;
+    let dueAccumulated = 0;
+    
+    const recalculatedRows = updatedRows.map(row => {
+      const baseSalary = row.baseSalary;
+      const duePaid = row.duePaid;
+      const paid = row.originalPaid;
+      
+      dueAccumulated += (baseSalary - paid);
+      dueAccumulated -= duePaid;
+      
+      totalPaid += paid;
+      totalDuePaid += duePaid;
+      totalDue = dueAccumulated;
+      
+      return {
+        ...row,
+        dueAccumulated
+      };
+    });
+    
+    setRowsData(recalculatedRows);
+    setTotals({
+      paid: totalPaid,
+      duePaid: totalDuePaid,
+      due: totalDue
+    });
+  };
 
   return (
     <motion.div
@@ -51,22 +163,22 @@ const SalaryCalculator = () => {
               <table className="w-full border-collapse min-w-[600px] sm:min-w-0" dir="rtl">
                 <thead className="bg-gray-800">
                   <tr>
-                    <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">السنة</th>
-                    <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">الشهر</th>
-                    <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">الراتب الأصلي</th>
-                    <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">النسبة المصروفة</th>
-                    <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">المبلغ المصروف</th>
-                    <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">المستحقات المصروفة</th>
-                    <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">المتبقي من المستحقات</th>
+                    <th className="p-1 sm:p-2 border border-gray-700 text-right">السنة</th>
+                    <th className="p-1 sm:p-2 border border-gray-700 text-right">الشهر</th>
+                    <th className="p-1 sm:p-2 border border-gray-700 text-right">الراتب الأصلي</th>
+                    <th className="p-1 sm:p-2 border border-gray-700 text-right">النسبة المصروفة</th>
+                    <th className="p-1 sm:p-2 border border-gray-700 text-right">المبلغ المصروف</th>
+                    <th className="p-1 sm:p-2 border border-gray-700 text-right">المستحقات المصروفة</th>
+                    <th className="p-1 sm:p-2 border border-gray-700 text-right">المتبقي من المستحقات</th>
                   </tr>
                 </thead>
                 <tbody>
                   {rowsData.map((row, index) => (
                     <tr key={`${row.year}-${row.month}`} className="hover:bg-gray-800">
-                      <td className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">{row.year}</td>
-                      <td className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">{row.month}</td>
-                      <td className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">{row.baseSalary}</td>
-                      <td className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">{(row.percent * 100).toFixed(0)}%</td>
+                      <td className="p-1 sm:p-2 border border-gray-700 text-right">{row.year}</td>
+                      <td className="p-1 sm:p-2 border border-gray-700 text-right">{row.month}</td>
+                      <td className="p-1 sm:p-2 border border-gray-700 text-right">{row.baseSalary}</td>
+                      <td className="p-1 sm:p-2 border border-gray-700 text-right">{(row.percent * 100).toFixed(0)}%</td>
                       <td className="p-1 sm:p-2 border border-gray-700">
                         <input
                           type="number"
@@ -76,10 +188,10 @@ const SalaryCalculator = () => {
                           dir="ltr"
                         />
                       </td>
-                      <td className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">
+                      <td className="p-1 sm:p-2 border border-gray-700 text-right">
                         {row.duePaid > 0 ? row.duePaid.toFixed(2) : '-'}
                       </td>
-                      <td className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">
+                      <td className="p-1 sm:p-2 border border-gray-700 text-right">
                         {row.dueAccumulated.toFixed(2)}
                       </td>
                     </tr>
@@ -87,10 +199,10 @@ const SalaryCalculator = () => {
                 </tbody>
                 <tfoot className="bg-gray-800">
                   <tr>
-                    <th colSpan="4" className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">الإجمالي</th>
-                    <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">{totals.paid.toFixed(2)}</th>
-                    <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">{totals.duePaid.toFixed(2)}</th>
-                    <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">{totals.due.toFixed(2)}</th>
+                    <th colSpan="4" className="p-1 sm:p-2 border border-gray-700 text-right">الإجمالي</th>
+                    <th className="p-1 sm:p-2 border border-gray-700 text-right">{totals.paid.toFixed(2)}</th>
+                    <th className="p-1 sm:p-2 border border-gray-700 text-right">{totals.duePaid.toFixed(2)}</th>
+                    <th className="p-1 sm:p-2 border border-gray-700 text-right">{totals.due.toFixed(2)}</th>
                   </tr>
                 </tfoot>
               </table>
