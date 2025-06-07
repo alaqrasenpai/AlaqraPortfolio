@@ -35,7 +35,7 @@ export default function Home() {
             About ME
           </h1>
           <p className="font-light text-foreground text-lg">
-            Meet the wizard behind this 
+            Meet the Programmer behind this 
           </p>
         </div>
       </div>
