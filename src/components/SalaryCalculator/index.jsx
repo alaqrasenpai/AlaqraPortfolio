@@ -90,7 +90,12 @@ const SalaryCalculator = () => {
       const duePercent = data.due || 0;
       const minSalary = data.min || 0;
 
-      const paid = Math.max(baseSalary * percent, minSalary);
+      // التعديل الرئيسي: لا يتجاوز المبلغ المصروف الراتب الأساسي
+      const paid = Math.min(
+        Math.max(baseSalary * percent, minSalary),
+        baseSalary
+      );
+
       const duePaid = baseSalary * duePercent;
 
       dueAccumulated += (baseSalary - paid);
@@ -134,7 +139,7 @@ const SalaryCalculator = () => {
     const recalculatedRows = updatedRows.map(row => {
       const baseSalary = row.baseSalary;
       const duePaid = row.duePaid;
-      const paid = row.originalPaid;
+      const paid = Math.min(row.originalPaid, baseSalary); // التأكد من عدم تجاوز الراتب الأساسي
       
       dueAccumulated += (baseSalary - paid);
       dueAccumulated -= duePaid;
@@ -145,6 +150,7 @@ const SalaryCalculator = () => {
       
       return {
         ...row,
+        originalPaid: paid,
         dueAccumulated
       };
     });
@@ -207,8 +213,8 @@ const SalaryCalculator = () => {
                     <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">الراتب الأصلي</th>
                     <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">النسبة</th>
                     <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">المبلغ المصروف</th>
-                    <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">المستحقات المدفوعة</th>
-                    <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">المتبقي من المستحقات</th>
+                    <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">المستحقات</th>
+                    <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">المتبقي</th>
                   </tr>
                 </thead>
                 <tbody>
