@@ -178,28 +178,68 @@ const SalaryCalculator = () => {
     });
     setShowResults(true);
   };
-  
+
+  // const handlePaidChange = (index, value) => {
+  //   const newValue = parseFloat(value) || 0;
+  //   const updatedRows = [...rowsData];
+  //   const baseSalary = updatedRows[index].baseSalary;
+
+  //   // التأكد من أن القيمة المدخلة لا تتجاوز الراتب الأساسي
+  //   updatedRows[index].originalPaid = newValue;
+
+  //   setRowsData(updatedRows);
+
+  //   // إعادة الحساب
+  //   let totalPaid = 0, totalDuePaid = 0, totalDue = 0;
+  //   let dueAccumulated = 0;
+
+  //   const recalculatedRows = updatedRows.map(row => {
+  //     const baseSalary = row.baseSalary;
+  //     const duePaid = row.duePaid;
+  //     const paid = row.originalPaid;
+
+  //     dueAccumulated += (baseSalary - paid);
+  //     dueAccumulated -= duePaid;
+
+  //     totalPaid += paid;
+  //     totalDuePaid += duePaid;
+  //     totalDue = dueAccumulated;
+
+  //     return {
+  //       ...row,
+  //       dueAccumulated
+  //     };
+  //   });
+
+  //   setRowsData(recalculatedRows);
+  //   setTotals({
+  //     paid: totalPaid,
+  //     duePaid: totalDuePaid,
+  //     due: totalDue
+  //   });
+  // };
+
   const handlePaidChange = (index, value) => {
     const newValue = parseFloat(value) || 0;
     const updatedRows = [...rowsData];
     const baseSalary = updatedRows[index].baseSalary;
 
-    // التأكد من أن القيمة المدخلة لا تتجاوز الراتب الأساسي
     updatedRows[index].originalPaid = newValue;
 
-    setRowsData(updatedRows);
-
-    // إعادة الحساب
+    // إعادة الحساب بنفس المنطق الجديد
     let totalPaid = 0, totalDuePaid = 0, totalDue = 0;
     let dueAccumulated = 0;
 
     const recalculatedRows = updatedRows.map(row => {
       const baseSalary = row.baseSalary;
-      const duePaid = row.duePaid;
+      const duePercent = row.duePercent || 0;
       const paid = row.originalPaid;
 
-      dueAccumulated += (baseSalary - paid);
-      dueAccumulated -= duePaid;
+      // حساب المستحقات المدفوعة من المتبقي السابق
+      const duePaid = Math.min(dueAccumulated, baseSalary * duePercent);
+
+      // تحديث المتبقي
+      dueAccumulated = (baseSalary - paid) + (dueAccumulated - duePaid);
 
       totalPaid += paid;
       totalDuePaid += duePaid;
@@ -207,6 +247,7 @@ const SalaryCalculator = () => {
 
       return {
         ...row,
+        duePaid,
         dueAccumulated
       };
     });
