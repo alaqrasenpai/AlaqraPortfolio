@@ -90,9 +90,10 @@ const SalaryCalculator = () => {
       const duePercent = data.due || 0;
       const minSalary = data.min || 0;
 
-      // التعديل الرئيسي: لا يتجاوز المبلغ المصروف الراتب الأساسي
+      // الحل الجديد: المبلغ المصروف هو الأقل بين (النسبة×الراتب أو الراتب الأساسي)
+      const calculated = baseSalary * percent;
       const paid = Math.min(
-        Math.max(baseSalary * percent, minSalary),
+        calculated > minSalary ? calculated : minSalary,
         baseSalary
       );
 
@@ -129,17 +130,21 @@ const SalaryCalculator = () => {
   const handlePaidChange = (index, value) => {
     const newValue = parseFloat(value) || 0;
     const updatedRows = [...rowsData];
-    updatedRows[index].originalPaid = newValue;
+    const baseSalary = updatedRows[index].baseSalary;
+    
+    // التأكد من أن القيمة المدخلة لا تتجاوز الراتب الأساسي
+    updatedRows[index].originalPaid = Math.min(newValue, baseSalary);
+    
     setRowsData(updatedRows);
     
-    // Recalculate all rows
+    // إعادة الحساب
     let totalPaid = 0, totalDuePaid = 0, totalDue = 0;
     let dueAccumulated = 0;
     
     const recalculatedRows = updatedRows.map(row => {
       const baseSalary = row.baseSalary;
       const duePaid = row.duePaid;
-      const paid = Math.min(row.originalPaid, baseSalary); // التأكد من عدم تجاوز الراتب الأساسي
+      const paid = row.originalPaid;
       
       dueAccumulated += (baseSalary - paid);
       dueAccumulated -= duePaid;
@@ -150,7 +155,6 @@ const SalaryCalculator = () => {
       
       return {
         ...row,
-        originalPaid: paid,
         dueAccumulated
       };
     });
