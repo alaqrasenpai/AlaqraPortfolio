@@ -1,21 +1,17 @@
 import SalaryCalculator from "@/components/SalaryCalculator";
-import Head from "next/head";
+import Head from 'next/head';
 
 export default function Home() {
     return (
         <>
             <Head>
-                <title>Salary Calculator | حاسبة الرواتب والمستحقات</title>
-                <meta name="description" content="أداة لحساب الرواتب والمستحقات للموظفين بناءً على بيانات وزارة المالية" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <link rel="icon" href="/favicon.ico" />
+                <title key="title">Salary Calculator | حاسبة الرواتب</title>
+                <meta key="meta-title" name="title" content="Salary Calculator" />
             </Head>
-
-            <main>
-                <div className="container mx-auto px-4 py-8">
-
-                    <SalaryCalculator />
-                </div>
+            
+            <main className="relative">
+                <h1 className="text-3xl font-bold text-center my-6">حاسبة الرواتب والمستحقات</h1>
+                <SalaryCalculator />
             </main>
         </>
     );
