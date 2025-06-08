@@ -207,8 +207,8 @@ const SalaryCalculator = () => {
                     <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">الراتب الأصلي</th>
                     <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">النسبة</th>
                     <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">المبلغ المصروف</th>
-                    <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">المستحقات</th>
-                    <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">المتبقي</th>
+                    <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">المستحقات المدفوعة</th>
+                    <th className="p-1 sm:p-2 border border-gray-700 text-right text-xs sm:text-sm">المتبقي من المستحقات</th>
                   </tr>
                 </thead>
                 <tbody>
