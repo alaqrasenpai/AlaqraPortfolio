@@ -61,7 +61,9 @@ const SalaryCalculator = () => {
     "2025-01": { percent: 0.7, min: 3500 },
     "2025-02": { percent: 0.7, min: 3500 },
     "2025-03": { percent: 0.7, min: 3500 },
-    "2025-04": { percent: 0.7, min: 3500 }
+    "2025-04": { percent: 0.7, min: 3500 },
+    "2025-05": { percent: 0.6, min: 3000 }
+
   };
 
   const handleSalaryChange = (year, value) => {
