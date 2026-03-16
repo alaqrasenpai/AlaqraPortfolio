@@ -4,11 +4,16 @@
 
 @layer base {
   :root {
-    --background: 27 27 27;
-    --foreground: 225 225 225;
-    --muted: 115 115 115;
-    --accent: 254 254 91;
-    /* hex value of rgb(254,254,91) color is  #FEFE5B  */
+    --background: 15 15 15;
+    --foreground: 240 240 240;
+    --muted: 150 150 150;
+    --accent: 255 60 60;
+    /* hex value of rgb(255,60,60) color is  #FF3C3C  */
+  }
+
+  body {
+    background: radial-gradient(circle at center, rgb(30 20 20) 0%, rgb(10 10 10) 100%);
+    min-height: 100vh;
   }
 }
 

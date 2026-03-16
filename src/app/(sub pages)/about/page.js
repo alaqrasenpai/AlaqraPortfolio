@@ -1,12 +1,4 @@
-import Image from "next/image";
-import bg from "../../../../public/background/about-background.png";
-import RenderModel from "@/components/RenderModel";
-// import HatModel from "@/components/models/HatModel";
 import AboutDetails from "@/components/about";
-import dynamic from "next/dynamic";
-const HatModel = dynamic(() => import("@/components/models/HatModel"), {
-  ssr: false,
-});
 
 export const metadata = {
   title: "About",
@@ -15,32 +7,18 @@ export const metadata = {
 export default function Home() {
   return (
     <>
-      <Image
-        src={bg}
-        priority
-        sizes="100vw"
-        alt="Next.js Portfolio website&apos;s about page background image"
-        className="-z-50 fixed top-0 left-0 w-full h-full object-cover object-center opacity-50"
-      />
-
-      <div className="w-full h-3/5 xs:h-3/4 sm:h-screen absolute top-1/2 -translate-y-1/2 left-0 z-10">
-        <RenderModel>
-          <HatModel />
-        </RenderModel>
+      <div className="flex flex-col items-center justify-center pt-24 pb-8 space-y-4 text-center">
+        <h1 className="text-5xl xs:text-6xl sm:text-7xl font-bold text-accent drop-shadow-lg">
+          About Me
+        </h1>
+        <p className="text-sm xs:text-base md:text-lg font-light text-foreground/80 max-w-2xl px-4">
+          Discover the story, skills, and passion behind the code.
+        </p>
       </div>
 
-      <div className="relative w-full h-screen flex flex-col items-center justify-center">
-        <div className="absolute flex flex-col items-center text-center top-1/2 sm:top-[60%] left-1/2 -translate-y-1/2 -translate-x-1/2">
-          <h1 className="font-bold  text-6xl xs:text-7xl sm:text-8xl  lg:text-9xl text-accent">
-            About ME
-          </h1>
-          <p className="font-light text-foreground text-lg">
-            Meet the Programmer behind this 
-          </p>
-        </div>
+      <div className="px-4 md:px-8 w-full">
+        <AboutDetails />
       </div>
-
-      <AboutDetails />
     </>
   );
 }

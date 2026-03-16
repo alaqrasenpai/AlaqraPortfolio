@@ -7,7 +7,8 @@ import {
   Phone,
   Twitter,
   User,
-  Instagram
+  Instagram,
+  Briefcase
 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -35,6 +36,8 @@ const getIcon = (icon) => {
       return <NotebookText className="w-full h-auto" strokeWidth={1.5} />;
     case "Instagram":
       return <Instagram className="w-full h-auto" strokeWidth={1.5} />;
+    case "work":
+      return <Briefcase className="w-full h-auto" strokeWidth={1.5} />;
 
     default:
       return <Home className="w-full h-auto" strokeWidth={1.5} />;

@@ -1,25 +1,10 @@
 import Image from "next/image";
-import bg from "../../public/background/home-background.png";
-import RenderModel from "@/components/RenderModel";
-// import Wizard from "@/components/models/Wizard";
+import me from "../../public/me2.png";
 import Navigation from "@/components/navigation";
-
-import dynamic from "next/dynamic";
-const Wizard = dynamic(() => import("@/components/models/Wizard"), {
-  ssr: false,
-});
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between relative">
-      <Image
-        priority
-        sizes="100vw"
-        src={bg}
-        alt="background-image"
-        fill
-        className="-z-50 w-full h-full object-cover object-center opacity-50"
-      />
       <div className="w-full h-screen relative">
         {/* Place Navigation in its own fixed container */}
         <div className="fixed top-0 left-0 w-full z-50">
@@ -27,26 +12,27 @@ export default function Home() {
         </div>
 
         {/* Main content wrapper */}
-        <div className="relative w-full h-full z-10">
-          <div className="w-full h-3/5 xs:h-3/4 sm:h-screen absolute top-1/2 -translate-y-1/2 left-0">
-            <RenderModel>
-              <Wizard />
-            </RenderModel>
-          </div>
-
-          <div className="w-full flex flex-col items-center text-center sm:hidden mt-24">
-            <h1 className="font-bold text-4xl xs:text-5xl text-accent">
+        <div className="relative w-full h-full z-10 flex flex-col items-center justify-center pt-20">
+          <div className="flex flex-col items-center text-center">
+            {/* Image instead of 3D model */}
+            <div className="relative w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 mb-8">
+              <Image
+                src={me}
+                alt="Ahmad Alaqra"
+                fill
+                className="rounded-full border-4 border-accent shadow-[0_0_20px_rgba(255,255,255,0.2)] object-cover"
+              />
+            </div>
+            
+            <h1 className="font-bold text-5xl xs:text-6xl sm:text-7xl text-accent drop-shadow-lg">
               Ahmad Alaqra
             </h1>
-            <p className="font-light text-foreground text-base xs:text-lg mt-2 tracking-wide text-opacity-80">
-              <strong>Meet the Developer/Gamer</strong>
+            <p className="font-light text-foreground text-lg xs:text-xl sm:text-2xl mt-4 tracking-wider text-opacity-90">
+              <strong>Developer | Gamer | Anime Enthusiast</strong>
             </p>
           </div>
         </div>
       </div>
-
-
-
     </main>
   );
 }
