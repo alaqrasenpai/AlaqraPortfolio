@@ -73,7 +73,7 @@ export default function Contact() {
               <div className="ml-4 flex flex-col min-w-0 flex-1">
                 <span className="text-sm font-light text-foreground/70">Chat on WhatsApp</span>
                 <span className="text-sm sm:text-base font-medium text-foreground group-hover:text-[#25D366] transition-colors truncate">
-                  +972 59 706 0381
+                  Start a conversation
                 </span>
               </div>
             </a>
