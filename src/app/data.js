@@ -102,12 +102,15 @@ export const BtnList = [
   { label: "Projects", link: "/projects", icon: "projects", newTab: false },
   { label: "Work Experience", link: "/work-experience", icon: "work", newTab: false },
   { label: "Contact", link: "/contact", icon: "contact", newTab: false },
+  // Temporarily hidden for privacy:
+  /*
   {
     label: "Resume",
     link: "/resume.pdf",
     icon: "resume",
     newTab: true,
   },
+  */
 ];
 
 

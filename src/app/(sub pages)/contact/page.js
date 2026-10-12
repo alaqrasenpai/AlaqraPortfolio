@@ -44,7 +44,7 @@ export default function Contact() {
               Get In Touch
             </h2>
 
-            {/* Email Card */}
+            {/* Email Card - Active */}
             <a
               href="mailto:alaqrahmad@gmail.com"
               className="group flex items-center p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-accent transition-all duration-300"
@@ -60,7 +60,8 @@ export default function Contact() {
               </div>
             </a>
 
-            {/* WhatsApp Card */}
+            {/* WhatsApp Card (Phone Number) - Temporarily hidden for privacy */}
+            {/*
             <a
               href="https://wa.me/972597060381"
               target="_blank"
@@ -77,12 +78,13 @@ export default function Contact() {
                 </span>
               </div>
             </a>
+            */}
 
             <div className="w-full h-px bg-white/10 my-4"></div>
 
-            {/* Social Links */}
+            {/* Professional Work Profiles */}
             <div className="flex flex-col space-y-4">
-              <span className="text-sm font-light text-foreground/70 text-center lg:text-left">Follow me on</span>
+              <span className="text-sm font-light text-foreground/70 text-center lg:text-left">Work & Professional Profiles</span>
               <div className="flex items-center justify-center lg:justify-start space-x-5">
                 <a href="https://github.com/alaqrasenpai" target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl bg-white/5 hover:bg-accent hover:text-background border border-white/10 hover:border-accent transition-all duration-300 group" aria-label="GitHub">
                   <Github className="w-6 h-6 transform group-hover:scale-110 transition-transform" strokeWidth={1.5} />
@@ -90,12 +92,15 @@ export default function Contact() {
                 <a href="https://www.linkedin.com/in/ahmad-alaqra/" target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl bg-white/5 hover:bg-[#0A66C2] hover:text-white border border-white/10 hover:border-[#0A66C2] transition-all duration-300 group" aria-label="LinkedIn">
                   <Linkedin className="w-6 h-6 transform group-hover:scale-110 transition-transform" strokeWidth={1.5} />
                 </a>
+                {/* Personal social profiles - temporarily hidden */}
+                {/*
                 <a href="https://www.instagram.com/ahmadalaqra/" target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl bg-white/5 hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#e6683c] hover:to-[#bc1888] hover:text-white border border-white/10 hover:border-[#e6683c] transition-all duration-300 group" aria-label="Instagram">
                   <Instagram className="w-6 h-6 transform group-hover:scale-110 transition-transform" strokeWidth={1.5} />
                 </a>
                 <a href="https://x.com/ahmedalaqra" target="_blank" rel="noopener noreferrer" className="p-3 rounded-xl bg-white/5 hover:bg-black/50 hover:text-white border border-white/10 hover:border-white/30 transition-all duration-300 group" aria-label="X (Twitter)">
                   <Twitter className="w-6 h-6 transform group-hover:scale-110 transition-transform" strokeWidth={1.5} />
                 </a>
+                */}
               </div>
             </div>
           </div>
