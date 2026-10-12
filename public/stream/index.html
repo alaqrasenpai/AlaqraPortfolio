@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Streamer Spin The Wheel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient background glow & holographic effects -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+  <div class="bg-grid-pattern"></div>
+  <canvas id="confettiCanvas"></canvas>
+
+  <div class="app-container">
+    <!-- Header bar -->
+    <header class="app-header">
+      <div class="logo-area">
+        <div class="logo-icon-wrapper">
+          <span class="logo-icon">🎡</span>
+          <div class="logo-glow-ring"></div>
+        </div>
+        <div>
+          <h1 class="logo-title">SPIN THE WHEEL</h1>
+          <p class="logo-sub">Interactive Streamer Giveaway & Live Chat Engine</p>
+        </div>
+      </div>
+
+      <div class="header-status-bar">
+        <!-- Live Connection Badge -->
+        <div class="status-badge" id="connectionStatusBadge">
+          <span class="status-dot disconnected" id="statusDot"></span>
+          <span id="statusText">Disconnected</span>
+        </div>
+
+        <!-- Join Command Toggle Button -->
+        <button id="toggleJoinStateBtn" class="action-pill-btn active" title="Toggle accepting join commands">
+          <span class="icon" id="joinStateIcon">🟢</span>
+          <span id="joinStateText">Entries Open</span>
+        </button>
+
+        <!-- OBS Mode Toggle -->
+        <button id="obsModeBtn" class="icon-btn" title="Toggle Clean OBS Overlay Mode (Press O)">
+          📺
+        </button>
+
+        <!-- Sound Toggle -->
+        <button id="soundToggleBtn" class="icon-btn" title="Toggle Audio (Mute / Unmute)">
+          🔊
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="main-layout">
+      <!-- Central Wheel Stage -->
+      <section class="wheel-section">
+        <div class="wheel-wrapper">
+          <!-- Modern Luminous Pointer -->
+          <div class="wheel-pointer-container">
+            <div class="wheel-pointer">▼</div>
+          </div>
+          <canvas id="wheelCanvas" width="600" height="600"></canvas>
+          <button id="centerSpinBtn" class="center-spin-btn" title="Click to spin">
+            <span class="center-pulse-ring"></span>
+            <span class="center-btn-text">SPIN</span>
+          </button>
+        </div>
+
+        <div class="wheel-actions">
+          <button id="spinBtn" class="btn btn-primary btn-large">
+            <span class="btn-icon">⚡</span>
+            <span>SPIN THE WHEEL</span>
+          </button>
+          <button id="quickTestJoinBtn" class="btn btn-secondary btn-large-subtle" title="Simulate a viewer typing the join command in chat">
+            <span>+ Test Chat Entry</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Sidebar: Settings, Participants & Live Chat Feed -->
+      <aside class="sidebar-section">
+        <!-- Channel & Command Setup Card -->
+        <div class="card config-card">
+          <div class="card-header">
+            <div class="card-header-title">
+              <span class="card-header-icon">⚙️</span>
+              <h3>Stream & Command</h3>
+            </div>
+            <span class="badge badge-purple">Twitch Live</span>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="channelInput">Twitch Channel Name</label>
+              <div class="input-with-button">
+                <input type="text" id="channelInput" placeholder="e.g. shroud or your channel" spellcheck="false" autocomplete="off">
+                <button id="connectBtn" class="btn btn-accent">Connect</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="commandInput">Join Command</label>
+              <div class="input-with-tag">
+                <input type="text" id="commandInput" placeholder="!join" value="!join" spellcheck="false">
+                <span class="input-hint">Case-insensitive (matches !join, !JOIN, etc.)</span>
+              </div>
+            </div>
+
+            <!-- Join entries switch -->
+            <div class="toggle-control-box">
+              <div class="toggle-info">
+                <strong>Accepting Chat Entries</strong>
+                <span id="subToggleStatusDesc">Command is actively listening for viewers</span>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="joinToggleCheckbox" checked>
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Participants Card -->
+        <div class="card participants-card">
+          <div class="card-header">
+            <div class="title-with-counter">
+              <span class="card-header-icon">👥</span>
+              <h3>Participants</h3>
+              <span class="counter-badge" id="participantsCount">0</span>
+            </div>
+            <div class="card-header-actions">
+              <button id="clearAllBtn" class="btn btn-danger btn-sm" title="Remove all participants">Clear All</button>
+            </div>
+          </div>
+
+          <div class="card-body no-padding">
+            <!-- Manual addition bar -->
+            <div class="manual-add-bar">
+              <input type="text" id="manualNameInput" placeholder="Add name (or comma-separated list)...">
+              <button id="manualAddBtn" class="btn btn-sm btn-secondary">Add</button>
+            </div>
+
+            <!-- Filter search -->
+            <div class="search-bar" id="searchBarWrapper" style="display: none;">
+              <input type="text" id="searchInput" placeholder="Search participants...">
+            </div>
+
+            <!-- Scrollable list of names -->
+            <div class="participants-list-container" id="participantsList">
+              <div class="empty-state" id="emptyState">
+                <span class="empty-icon">🎯</span>
+                <p>No participants yet</p>
+                <small>Viewers who type your command in chat will automatically appear here!</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Chat Activity Feed Card -->
+        <div class="card chat-feed-card">
+          <div class="card-header">
+            <div class="title-with-counter">
+              <span class="card-header-icon">💬</span>
+              <h3>Live Chat Activity</h3>
+              <span class="badge" id="chatMsgCountBadge">0 msgs</span>
+            </div>
+            <button id="clearChatLogBtn" class="btn-icon-subtle" title="Clear chat feed">✕</button>
+          </div>
+          <div class="card-body no-padding">
+            <div class="chat-feed-container" id="chatFeedContainer">
+              <div class="chat-feed-placeholder" id="chatFeedPlaceholder">
+                Connect your channel to monitor incoming chat messages in real time.
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Developer Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <div class="footer-left">
+          <span class="footer-brand">Streamer Spin The Wheel</span>
+          <span class="footer-dot">•</span>
+          <span class="footer-desc">Crafted for live creators & broadcasters</span>
+        </div>
+        <div class="footer-right">
+          <span>Developed with <span class="heart-pulse">⚡</span> by</span>
+          <a href="https://alaqra.dev" target="_blank" rel="noopener noreferrer" class="dev-link-badge">
+            <span class="dev-name">Ahmad Alaqra</span>
+            <span class="dev-url">alaqra.dev</span>
+            <span class="dev-arrow">↗</span>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Floating notifications (Toasts) -->
+    <div id="toastContainer" class="toast-container"></div>
+  </div>
+
+  <!-- Redesigned Cohesive Winner Modal -->
+  <div class="modal-backdrop" id="winnerModal">
+    <div class="modal-card">
+      <div class="modal-glow-halo"></div>
+      
+      <div class="modal-trophy-wrapper">
+        <div class="trophy-rays"></div>
+        <div class="modal-trophy">🏆</div>
+      </div>
+      
+      <span class="modal-eyebrow">CONGRATULATIONS</span>
+      <h2 class="modal-title">WINNER SELECTED!</h2>
+      
+      <div class="winner-name-display-container">
+        <div class="winner-name-glow"></div>
+        <div class="winner-name-display" id="winnerNameDisplay">Winner_Name</div>
+      </div>
+      
+      <p class="modal-prompt">What would you like to do with this participant?</p>
+
+      <div class="modal-choices">
+        <button id="removeWinnerBtn" class="btn btn-modal-remove flex-1">
+          <span class="btn-icon">🗑️</span>
+          <span>Remove from Wheel</span>
+        </button>
+
+        <button id="keepAndRespinBtn" class="btn btn-modal-keep flex-1">
+          <span class="btn-icon">🔄</span>
+          <span>Keep & Spin Again</span>
+        </button>
+      </div>
+
+      <button id="closeModalBtn" class="btn-modal-dismiss">Keep participant & close</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
